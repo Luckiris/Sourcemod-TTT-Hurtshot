@@ -5,10 +5,8 @@
 #include <sdkhooks>
 #include <sdktools>
 #include <cstrike>
-
 #include <ttt_shop>
 #include <ttt>
-#include <config_loader>
 #include <multicolors>
 
 #define SHORT_NAME "hurtshot"
@@ -193,13 +191,13 @@ public Action TTT_OnItemPurchased(int client, const char[] itemshort, bool count
 				char itemName[128];
 				cvTag.GetString(tag, sizeof(tag));
 				gName.GetString(itemName, sizeof(itemName));
-				CPrintToChat(client, tag, "Bought All", client, itemName, gCount.IntValue);
+				CPrintToChat(client, "%s %t", tag, "Bought All", itemName, gCount.IntValue);
 				return Plugin_Stop;
 			}
 			
 			int ent = GivePlayerItem(client, "weapon_healthshot");
 			listHS.Push(ent); // -> Adding the entity id to the global list
-			CS_DropWeapon(client, ent, false, false);
+			CS_DropWeapon(client, ent, false, false); // -> Drop the hurtshot to enable it
 
 			if (count)
 				gPlayersCount[client]++;
